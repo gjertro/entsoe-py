@@ -224,7 +224,7 @@ class EntsoeRawClient:
         response = self.base_request(params=params, start=start, end=end)
         return response.text
 
-    def query_wind_and_solar_forecast(self, country_code, start, end, psr_type=None, lookup_bzones=False):
+    def query_wind_and_solar_forecast(self, country_code, start, end, psr_type=None):
         """
         Parameters
         ----------
@@ -240,10 +240,8 @@ class EntsoeRawClient:
         -------
         str
         """
-        if not lookup_bzones:
-            domain = DOMAIN_MAPPINGS[country_code]
-        else:
-            domain = BIDDING_ZONES[country_code]
+
+        domain = BIDDING_ZONES[country_code]
 
         params = {
             'documentType': 'A69',
@@ -256,7 +254,7 @@ class EntsoeRawClient:
         response = self.base_request(params=params, start=start, end=end)
         return response.text
 
-    def query_generation(self, country_code, start, end, psr_type=None, lookup_bzones=False):
+    def query_generation(self, country_code, start, end, psr_type=None):
         """
         Parameters
         ----------
@@ -272,10 +270,8 @@ class EntsoeRawClient:
         -------
         str
         """
-        if not lookup_bzones:
-            domain = DOMAIN_MAPPINGS[country_code]
-        else:
-            domain = BIDDING_ZONES[country_code]
+
+        domain = BIDDING_ZONES[country_code]
 
         params = {
             'documentType': 'A75',
@@ -302,7 +298,7 @@ class EntsoeRawClient:
         -------
         str
         """
-        domain = DOMAIN_MAPPINGS[country_code]
+        domain = BIDDING_ZONES[country_code]
         params = {
             'documentType': 'A68',
             'processType': 'A33',
@@ -327,8 +323,8 @@ class EntsoeRawClient:
         -------
         str
         """
-        domain_in = DOMAIN_MAPPINGS[country_code_to]
-        domain_out = DOMAIN_MAPPINGS[country_code_from]
+        domain_in = BIDDING_ZONES[country_code_to]
+        domain_out = BIDDING_ZONES[country_code_from]
         params = {
             'documentType': 'A11',
             'in_Domain': domain_in,
@@ -351,7 +347,7 @@ class EntsoeRawClient:
         -------
         str
         """
-        domain = DOMAIN_MAPPINGS[country_code]
+        domain = BIDDING_ZONES[country_code]
         params = {
             'documentType': 'A85',
             'controlArea_Domain': domain,
@@ -378,7 +374,7 @@ class EntsoeRawClient:
         -------
         bytes
         """
-        domain = DOMAIN_MAPPINGS[country_code]
+        domain = BIDDING_ZONES[country_code]
         params = {
             'documentType': 'A77',
             'biddingZone_domain': domain
